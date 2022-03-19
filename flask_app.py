@@ -78,7 +78,7 @@ def handle_dialog(req, res):
             ]
         }
         # Заполняем текст ответа
-        res['response']['text'] = 'Привет! Купи слона!'
+        res['response']['text'] = 'Как начинается рассказ любого безрукого человека? Иду, иду, никого не трогаю'
         # Получим подсказки
         res['response']['buttons'] = get_suggests(user_id)
         return
