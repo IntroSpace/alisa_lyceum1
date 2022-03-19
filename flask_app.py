@@ -33,6 +33,7 @@ sessionStorage = {}
 
 
 @app.route('/post', methods=['POST'])
+@app.route('/', methods=['POST'])
 # Функция получает тело запроса и возвращает ответ.
 # Внутри функции доступен request.json - это JSON,
 # который отправила нам Алиса в запросе POST
