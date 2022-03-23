@@ -82,30 +82,31 @@ def handle_dialog(res, req):
                 } for city in cities
             ]
             res['response']['buttons'].append({
-                'title': 'помощь',
+                'title': 'Помощь',
                 'hide': True
             })
     # если мы знакомы с пользователем и он нам что-то написал,
     # то это говорит о том, что он уже говорит о городе,
     # что хочет увидеть.
     else:
-        if req['response']['text'].lower() == 'помощь':
+        if req['request']['command'].lower() == 'помощь':
             res['response']['text'] = 'Этот навык показывает города :)'
-        # ищем город в сообщение от пользователя
-        city = get_city(req)
-        # если этот город среди известных нам,
-        # то показываем его (выбираем одну из двух картинок случайно)
-        if city in cities:
-            res['response']['card'] = {}
-            res['response']['card']['type'] = 'BigImage'
-            res['response']['card']['title'] = 'Этот город я знаю.'
-            res['response']['card']['image_id'] = random.choice(cities[city])
-            res['response']['text'] = 'Я угадал!'
-        # если не нашел, то отвечает пользователю
-        # 'Первый раз слышу об этом городе.'
         else:
-            res['response']['text'] = \
-                'Первый раз слышу об этом городе. Попробуй еще разок!'
+            # ищем город в сообщение от пользователя
+            city = get_city(req)
+            # если этот город среди известных нам,
+            # то показываем его (выбираем одну из двух картинок случайно)
+            if city in cities:
+                res['response']['card'] = {}
+                res['response']['card']['type'] = 'BigImage'
+                res['response']['card']['title'] = 'Этот город я знаю.'
+                res['response']['card']['image_id'] = random.choice(cities[city])
+                res['response']['text'] = 'Я угадал!'
+            # если не нашел, то отвечает пользователю
+            # 'Первый раз слышу об этом городе.'
+            else:
+                res['response']['text'] = \
+                    'Первый раз слышу об этом городе. Попробуй еще разок!'
 
 
 def get_city(req):
